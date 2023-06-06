@@ -15,8 +15,6 @@ app.post("/", function(req, res) {
   var lName = req.body.lastName;
   var email = req.body.email;
 
-  console.log(fName, lName, email);
-
   const mailchimp = require("@mailchimp/mailchimp_marketing");
 
   mailchimp.setConfig({
@@ -36,15 +34,10 @@ app.post("/", function(req, res) {
       });
   
       if (response.status === "subscribed") {
-        console.log("New contact added successfully!");
-        // Perform any additional actions or send a success response to the client
         res.sendFile(__dirname + "/success.html");
       } else {
-        console.log("Failed to add new contact. Response:", response);
-        // Handle the failure case or send an error response to the client
       }
     } catch (error) {
-      console.error("Error occurred while adding new contact:", error);
       // Handle the error case or send an error response to the client
       res.sendFile(__dirname + "/failure.html");
     }
